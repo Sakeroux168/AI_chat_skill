@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## V1.1.1 (2026-08-26)
+
+- Added lazy, metadata-driven discovery of professional capabilities through
+  the separate `Sakeroux168/AI_shared_skills` registry.
+- Kept the V1.1 global collaboration registry at exactly ten skills.
+- Added no domain-to-skill hard-coded routes and no startup preload.
+
 ## V1.1 (2026-08-25)
 
 - Added `agent-task-dispatch` as the tenth global skill.
