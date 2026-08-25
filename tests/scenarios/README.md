@@ -16,10 +16,11 @@ expected result needs a conscious decision, not a silent edit.
 | 8 | GUI 改字体 | `gui-acceptance`: flagged 真人视觉验收; automated screenshot may be attached as evidence only; no "visually verified" claim. |
 | 9 | 纯 backend bug | No human GUI acceptance required; standard review + tests suffice. |
 | 10 | 用户说"你决定" | Recorded as DELEGATED in the Decision Sheet / task notes; agent decides and records the resolution; user is not re-asked. |
+| 11 | "把这份任务发给 Codex，别浪费 token" | Orchestrator routes to `model-routing` + `agent-task-dispatch`. Model/Reasoning are declared first. Task uses numbered top-level sections, one blank line only between top-level sections, no decorative separators or unnecessary Markdown headings, no blank lines inside one section, and repeated constraints are merged. |
 
-## Results (V1)
+## Results (V1.1)
 
-All ten scenarios were walked against the V1 texts above:
+All eleven scenarios were walked against the V1.1 texts above:
 
 - 1–2: trigger gate in `requirement-grill` + orchestrator routing table produce
   grill vs no-grill correctly; round-size rule (3–6) prevents a dump.
@@ -29,6 +30,7 @@ All ten scenarios were walked against the V1 texts above:
 - 7: BOOTSTRAP precedence list is explicit and ordered.
 - 8–9: `gui-acceptance` two-branch rule with borderline guidance.
 - 10: DELEGATED semantics defined in `requirement-grill` rules.
+- 11: Codex dispatch composes `model-routing` + `agent-task-dispatch`; dispatch formatting removes decorative separators, internal blank-line padding, unnecessary headings, whole-prompt code fences, and repeated constraints while preserving exact technical identifiers.
 
 No scenario produced a mechanical questionnaire, an undisclosed model choice,
-or a self-reported visual verification. PASS.
+a self-reported visual verification, or a token-wasting agent task layout. PASS.

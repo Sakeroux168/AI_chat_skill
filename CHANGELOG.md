@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## V1.1 (2026-08-25)
+
+- Added `agent-task-dispatch` as the tenth global skill.
+- Agent task prompts now default to numbered top-level sections, one blank line only between top-level sections, no decorative separators, no unnecessary Markdown headings, and no repeated constraints.
+- Codex dispatch now combines `model-routing` with `agent-task-dispatch`; other agents use `agent-task-dispatch` directly.
+- Technical exactness remains mandatory: paths, SHAs, commands, schema/contract versions, field names, model names, and acceptance values are never shortened for token savings.
+- README translated from English to Chinese for easier direct reading.
+- Added a self-test scenario for compact agent task dispatch formatting.
+
 ## V1 (2026-08-25)
 
 Initial release. Nine skills, derived by generalizing the AI-Reveal-Video-Studio

@@ -16,7 +16,8 @@ the way.
 | Vague new product idea ("我想做一个…", "自动…", "批量…", "类似某某软件…") or explicit "先 grill 我" | `requirement-grill` |
 | Clear small change (one-line fix, text tweak, already fully specified) | no skill — just do it under `engineering-discipline` basics |
 | Work must be split across agents/roles | `agent-routing` |
-| Dispatching a task to Codex | `model-routing` |
+| Dispatching a task to Codex | `model-routing` + `agent-task-dispatch` |
+| Writing/reformatting a task for Claude, Hermes, Ox, or another agent | `agent-task-dispatch` |
 | Formal implementation / debugging / refactor about to start | `engineering-discipline` |
 | Agent finished GitHub work and must report | `pr-delivery` |
 | Reviewing a PR or another agent's output | `code-review` |
@@ -27,11 +28,14 @@ the way.
 
 1. Load at most the routed skills — one primary, plus references it names.
    Never preload the whole registry.
-2. A request can chain: grill → route → implement → deliver → review. Each
-   phase loads its own skill when reached.
+2. A request can chain: grill → route → dispatch → implement → deliver → review.
+   Each phase loads its own skill when reached.
 3. If the current project defines its own skills or contracts, they take
    precedence over these globals for project-specific matters.
 4. If no route fits, proceed with generic care (read before writing, minimal
    change) instead of forcing a skill.
-5. When routing implementation work to Codex, always pass through
-   `model-routing` first and state Model + Reasoning to the user.
+5. When dispatching implementation work to Codex, load `model-routing` first,
+   state Model + Reasoning to the user, then format the task with
+   `agent-task-dispatch`.
+6. When dispatching work to any other agent, use `agent-task-dispatch` unless
+   the user explicitly asks for another format.
