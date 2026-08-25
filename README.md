@@ -4,7 +4,7 @@
 
 它不是项目代码仓库，不保存产品代码，只保存聊天与 Agent 协作时使用的工作规则。
 
-单一入口：[BOOTSTRAP.md](BOOTSTRAP.md)。Skill 注册表：[SKILLS.md](SKILLS.md)。变更历史：[CHANGELOG.md](CHANGELOG.md)。中文人读版手册：[HANDBOOK.zh-CN.md](HANDBOOK.zh-CN.md)（仅导读，AI 仍以英文 SKILL.md 原文为真源）。完整教程（使用+维护+加 Skill SOP）：[TUTORIAL.zh-CN.md](TUTORIAL.zh-CN.md)。
+单一入口：[BOOTSTRAP.md](BOOTSTRAP.md)。Skill 注册表：[SKILLS.md](SKILLS.md)。变更历史：[CHANGELOG.md](CHANGELOG.md)。中文人读版手册：[HANDBOOK.zh-CN.md](HANDBOOK.zh-CN.md)（仅导读，AI 仍以英文 SKILL.md 原文为真源）。完整教程：[TUTORIAL.zh-CN.md](TUTORIAL.zh-CN.md)。大白话版：[PLAIN.zh-CN.md](PLAIN.zh-CN.md)（给不想看术语的人）。
 
 ## 新聊天如何使用
 
