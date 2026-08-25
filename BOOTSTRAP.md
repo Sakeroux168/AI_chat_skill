@@ -40,6 +40,7 @@ conflict so it can be fixed here.
 | `requirement-grill` | vague new product idea, or user asks to be grilled |
 | `agent-routing` | work must be split across agents/roles |
 | `model-routing` | dispatching work to Codex (model/reasoning choice) |
+| `agent-task-dispatch` | writing or rewriting a task that will be sent to an agent |
 | `engineering-discipline` | before implementing/debugging/refactoring |
 | `code-review` | reviewing a PR or another agent's completed work |
 | `pr-delivery` | an agent finished GitHub work and must report it |
