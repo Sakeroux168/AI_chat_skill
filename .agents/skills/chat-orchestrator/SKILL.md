@@ -23,6 +23,7 @@ the way.
 | Reviewing a PR or another agent's output | `code-review` |
 | UI / visual / interaction change needs acceptance | `gui-acceptance` |
 | Deciding what to commit | `project-hygiene` |
+| A reusable professional capability is materially useful but absent from project/global skills | Query `Sakeroux168/AI_shared_skills/registry/skills.json`, then load only the matched skill |
 
 ## Routing rules
 
@@ -39,3 +40,10 @@ the way.
    `agent-task-dispatch`.
 6. When dispatching work to any other agent, use `agent-task-dispatch` unless
    the user explicitly asks for another format.
+7. Discover professional capabilities by matching registry metadata
+   (`description`, `category`, and `capabilities`). Do not
+   add domain-to-skill mappings here.
+8. Load an active `trusted` professional skill by default. Load an
+   `experimental` skill only after explicit user request or acceptance;
+   never load a `disabled` skill. If the registry cannot be reached,
+   state that and proceed with available rules instead of guessing.
