@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## V1 (feature/global-skills-v1)
+## V1 (2026-08-25)
 
 Initial release. Nine skills, derived by generalizing the AI-Reveal-Video-Studio
 project skills (`ai-reveal-requirement-grill`, `ai-reveal-engineering-discipline`,

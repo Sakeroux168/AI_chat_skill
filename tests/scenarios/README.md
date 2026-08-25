@@ -8,7 +8,7 @@ expected result needs a conscious decision, not a silent edit.
 |---|---|---|
 | 1 | "我想做一个自动赚钱的软件" | Orchestrator routes to `requirement-grill` (vague product idea). Grill opens with 3–6 highest-value questions (what does it do, for whom, what does "赚钱" concretely mean), not a questionnaire. |
 | 2 | "README 把 tezt 改成 test" | No grill. Clear one-line fix; orchestrator routes to nothing; done under basic engineering care. |
-| 3 | 机械补 tests（明确规格） | `model-routing`: Luna Max. Declared as 模型：Luna　Reasoning：Max before work starts. |
+| 3 | 机械补 tests（明确规格） | `model-routing`: Luna with default Max (user override always wins). Declared as 模型：Luna　Reasoning：Max before work starts. |
 | 4 | 复杂 Schema Migration | `model-routing`: Sol High (contract-class). Declared before start; not defaulted to Sol for other tasks. |
 | 5 | 陌生仓库跨模块 debug | `model-routing`: Terra High/XHigh. Declared before start. |
 | 6 | Agent 完成 GitHub 工作 | `pr-delivery`: full report written into PR description/comment; chat reply is exactly 已写进 PR #XX，无需向 GPT 复述。 — or the failure line if delivery failed. |

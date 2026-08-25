@@ -7,9 +7,9 @@ description: Choose Codex agent (Luna/Terra/Sol) and reasoning effort per task; 
 
 ## Agents and allowed reasoning efforts
 
-| Agent | Allowed reasoning |
+| Agent | Reasoning efforts |
 |---|---|
-| **Luna** | Max only (default) |
+| **Luna** | default **Max**; a user's explicit override always wins |
 | **Terra** | High / XHigh |
 | **Sol** | High / XHigh / Max |
 

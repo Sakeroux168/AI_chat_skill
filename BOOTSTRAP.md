@@ -1,8 +1,10 @@
 # BOOTSTRAP — the single entry point
 
-This file is the ONLY thing a new chat / new agent session reads by default
-(together with `chat-orchestrator/SKILL.md`). Everything else in this repo is
-**lazy-load**: read a skill only when the orchestrator routes you to it.
+Once a session is **explicitly bootstrapped** (the user asks it to load the
+global skills from this repo — ChatGPT does not read GitHub on its own), it
+reads exactly two files by default: this file, plus
+`chat-orchestrator/SKILL.md`. Everything else here is **lazy-load**: read a
+skill only when the orchestrator routes you to it.
 
 ## What this repository is
 
@@ -45,3 +47,13 @@ conflict so it can be fixed here.
 | `gui-acceptance` | UI/visual changes need acceptance |
 
 See [SKILLS.md](SKILLS.md) for one-line descriptions.
+
+## How a session gets bootstrapped
+
+A new chat does not read this repo by itself. The user must give an explicit
+entry instruction once, e.g.:
+
+> 读取 GitHub 仓库 Sakeroux168/AI_chat_skill 的 BOOTSTRAP.md，并按它加载全局 Skill。
+
+Short forms ("加载全局 Skill") work only when the chat already knows which
+repo to load from.
