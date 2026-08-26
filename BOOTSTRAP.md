@@ -49,6 +49,20 @@ conflict so it can be fixed here.
 
 See [SKILLS.md](SKILLS.md) for one-line descriptions.
 
+## External professional capabilities (lazy-load only)
+
+Professional/domain skills do not belong to this ten-skill global registry.
+When a task would materially benefit from a reusable capability not supplied
+by the current project or these globals, the orchestrator may query
+`Sakeroux168/AI_shared_skills/registry/skills.json`. It loads only the
+matched skill, never that repository's whole catalog, and never at startup.
+
+Project contracts still take precedence. Use an active `trusted` skill
+by default; use an `experimental` skill only when the user explicitly
+requests it or accepts that status. If the external registry is unavailable,
+continue with the available project/global rules and state the limitation
+instead of inventing registry entries.
+
 ## How a session gets bootstrapped
 
 A new chat does not read this repo by itself. The user must give an explicit

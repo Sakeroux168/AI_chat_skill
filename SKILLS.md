@@ -21,3 +21,8 @@ Any agent (ChatGPT, Codex, Claude, Hermes) reads them from this repo
 directly or via raw.githubusercontent.com.
 
 Versioning: see [CHANGELOG.md](CHANGELOG.md). V1 = initial nine skills; V1.1 adds `agent-task-dispatch`.
+
+Professional capabilities are deliberately excluded from this exact-ten
+registry. They are discovered lazily through
+`Sakeroux168/AI_shared_skills/registry/skills.json` when needed and do
+not count as additional global collaboration skills.
