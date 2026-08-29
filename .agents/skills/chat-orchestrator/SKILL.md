@@ -14,11 +14,11 @@ the way.
 | Signal in the request | Route to |
 |---|---|
 | Vague new product idea ("我想做一个…", "自动…", "批量…", "类似某某软件…") or explicit "先 grill 我" | `requirement-grill` |
-| Clear small change (one-line fix, text tweak, already fully specified) | no skill — just do it under `engineering-discipline` basics |
+| Clear local/reversible low-risk change (one-line fix, text/style tweak, fully specified local behavior) | no extra skill — proceed under `engineering-discipline` low-risk scope rules |
 | Work must be split across agents/roles | `agent-routing` |
 | Dispatching a task to Codex | `model-routing` + `agent-task-dispatch` |
 | Writing/reformatting a task for Claude, Hermes, Ox, or another agent | `agent-task-dispatch` |
-| Formal implementation / debugging / refactor about to start | `engineering-discipline` |
+| Formal implementation / debugging / refactor, especially structural or high-risk work | `engineering-discipline` |
 | Agent finished GitHub work and must report | `pr-delivery` |
 | Reviewing a PR or another agent's output | `code-review` |
 | UI / visual / interaction change needs acceptance | `gui-acceptance` |
@@ -35,15 +35,20 @@ the way.
    precedence over these globals for project-specific matters.
 4. If no route fits, proceed with generic care (read before writing, minimal
    change) instead of forcing a skill.
-5. When dispatching implementation work to Codex, load `model-routing` first,
+5. When implementation is about to start, classify the **current change** by
+   actual risk rather than project size or code volume. Local/reversible work
+   stays minimal and focused; structural/high-risk work uses the stronger
+   evidence, regression, E2E, human-verification, and authorization boundaries
+   defined by `engineering-discipline`.
+6. When dispatching implementation work to Codex, load `model-routing` first,
    state Model + Reasoning to the user, then format the task with
    `agent-task-dispatch`.
-6. When dispatching work to any other agent, use `agent-task-dispatch` unless
+7. When dispatching work to any other agent, use `agent-task-dispatch` unless
    the user explicitly asks for another format.
-7. Discover professional capabilities by matching registry metadata
+8. Discover professional capabilities by matching registry metadata
    (`description`, `category`, and `capabilities`). Do not
    add domain-to-skill mappings here.
-8. Load an active `trusted` professional skill by default. Load an
+9. Load an active `trusted` professional skill by default. Load an
    `experimental` skill only after explicit user request or acceptance;
    never load a `disabled` skill. If the registry cannot be reached,
    state that and proceed with available rules instead of guessing.
