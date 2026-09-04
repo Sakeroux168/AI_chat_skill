@@ -15,7 +15,7 @@ Core principle: **small things: restraint; big things: rigor. Match engineering 
 2. **Separate facts from decisions.** Discoverable repo facts are looked up; only unresolved business/architecture decisions are escalated.
 3. **Search before creating.** Reuse an existing helper/entry point/state owner before inventing a new one.
 4. **Reproduce before modifying defects.** Capture the observed failure and relevant values before the fix.
-5. **Make the minimum change.** Fix the requested root cause and nothing else. Unrelated cleanup becomes a follow-up.
+5. **Make the minimum change.** Fix the requested root cause or coordinator-defined task bundle and nothing else. Unrelated cleanup becomes a follow-up.
 6. **Test the real risk.** Use focused tests by default; integration/E2E only when lower layers cannot prove the behavior that changed.
 7. **Fail loud when correctness is at risk.** Do not hide data loss, wrong output, stale state, or contract failure behind fallback behavior.
 8. **Check lifecycle where relevant.** Look for stale work, previous-session pollution, cleanup failures, and omitted fields inheriting old values when the change actually touches those paths.
@@ -47,11 +47,11 @@ Examples: a clear feature touching several files or modules without changing a c
 
 Default behavior:
 
-- keep one coherent deliverable;
+- keep one coherent deliverable or coordinator-defined task bundle;
 - inspect only the direct dependency chain unless evidence expands the blast radius;
 - prefer one implementation agent;
 - use broader integration tests only for paths the change actually crosses;
-- split the task if it silently grows into several independent deliverables rather than consuming the remaining context trying to finish everything at once.
+- split only when work has become genuinely independent rather than mechanically splitting every bug or ticket.
 
 ### Structural / high-risk
 
@@ -67,6 +67,32 @@ For these changes:
 - use an independent reviewer when contract freeze or irreversible architecture merits separation of author and reviewer;
 - require explicit user authorization before irreversible actions.
 
+## Cohesive task bundling
+
+**Task bundling is coordinator-owned by default.** The coordinator/Chat should group already-known work before dispatch so implementation-agent quota is spent on implementation and verification rather than on scanning the entire backlog for more work.
+
+A dispatch may intentionally contain several small or medium fixes when they form one coherent engineering bundle. Prefer bundling when the items:
+
+- sit on the same module or direct runtime/data-flow chain;
+- require substantially the same implementation context;
+- share most of the setup, integration path, or verification cost;
+- are already confirmed defects/requirements rather than speculative cleanup;
+- retain clear per-item acceptance inside one bounded delivery.
+
+“One task” means **one coherent engineering outcome**, not necessarily one bug ticket.
+
+Do not bundle merely because code is nearby. Keep work separate when it introduces a distinct product/architecture decision, schema or migration, security boundary, irreversible operation, unrelated performance program, or materially different risk class.
+
+Implementation-agent behavior inside a bundle:
+
+- own the shared code path coherently rather than splitting same-core-file edits across multiple agents by default;
+- fix a directly shared root cause, a blocker required for the bundle's acceptance, or a regression caused by the current change when needed;
+- report newly discovered adjacent but independent issues back to the coordinator instead of silently expanding scope;
+- do **not** scan the backlog/repository looking for additional bundle candidates unless the coordinator explicitly asked for that research;
+- reuse shared test setup where appropriate, but preserve enough evidence to prove each bundled acceptance condition.
+
+Parallel agents are optional, not automatic. They are most useful for truly independent workstreams or bounded post-implementation verification whose wall-clock benefit exceeds duplicated context/token cost. Do not use several agents to edit the same core path merely because parallelism is available.
+
 ## Investigation budget
 
 Investigation is evidence-driven, not open-ended.
@@ -79,12 +105,15 @@ If investigation, token use, context growth, or elapsed time becomes disproporti
 
 1. re-check the requested scope and acceptance criteria;
 2. identify which discovered work is actually blocking;
-3. defer non-blocking findings;
-4. if the task has become multiple independent jobs, report/split them rather than silently expanding.
+3. defer non-blocking independent findings;
+4. preserve a coherent coordinator-defined same-chain bundle;
+5. split only the newly independent jobs rather than silently expanding or mechanically fragmenting the bundle.
 
 ## Subagent rule
 
 Implementation subagent count defaults to **zero** for local and moderate work. Use additional agents only when there is a concrete independent workstream or an independence requirement (for example author vs final contract reviewer). Never recursively spawn agents merely to be thorough.
+
+For a coordinator-defined task bundle, one implementation owner is normally preferred for the shared code path. Bounded independent test/QA agents may run in parallel when that materially reduces elapsed time without duplicating the same implementation work.
 
 ## Abstraction and refactoring rule
 
@@ -94,9 +123,11 @@ Do not build a Registry for one mapping, a Strategy for two branches, a Manager 
 
 ## Testing scope
 
-Default: **test this change plus directly affected paths.** Expand only when dependency inspection, observed behavior, or structural/high-risk impact proves a wider regression surface.
+Default: **test this change/task bundle plus directly affected paths.** Expand only when dependency inspection, observed behavior, or structural/high-risk impact proves a wider regression surface.
 
 Broad regression is not automatically more rigorous. For a small local edit it may be wasted time/tokens; for a contract/lifecycle/rendering change it may be necessary. Choose based on the behavior that could actually break.
+
+When bundled fixes share an expensive integration/E2E setup, prefer one shared run with distinct scenarios/assertions for the bundled acceptance conditions rather than repeating effectively identical setup for each micro-fix.
 
 ## Human confirmation boundary
 
