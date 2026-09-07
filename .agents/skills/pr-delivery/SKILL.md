@@ -14,11 +14,14 @@ prevents.
 
 ## Protocol
 
-1. Finish the work: commit, push, open the PR (Draft unless declared ready).
-2. Write the complete report into the PR description. Required sections are
-   task-dependent, but at minimum: what was done, how it was verified (real
-   execution output, not claims), scope, risks/open questions, and any
-   review-readiness statement requested by the user.
+1. Finish the work: commit, push, update the existing PR or open one when
+   needed (Draft unless declared ready).
+2. **Complete != exhaustive.** Write what changed, why, what was actually
+   checked/run, its result, and what remains unverified / UNKNOWN. Summarize
+   evidence accurately; raw logs and a section per item are not required.
+   Preserved/out-of-scope subsystems need individual report entries only
+   when they are a real risk surface of this change. Include any requested
+   readiness statement or project-specific evidence.
 3. Verify the write landed (re-fetch or confirm the tool returned the PR URL).
 4. Final chat reply, exactly:
    - Success: `已写进 PR #XX，无需向 GPT 复述。`

@@ -16,7 +16,7 @@ Core principle: **small things: restraint; big things: rigor. Match engineering 
 3. **Search before creating.** Reuse an existing helper/entry point/state owner before inventing a new one.
 4. **Reproduce before modifying defects.** Capture the observed failure and relevant values before the fix.
 5. **Make the minimum change.** Fix the requested root cause or coordinator-defined task bundle and nothing else. Unrelated cleanup becomes a follow-up.
-6. **Test the real risk.** Use focused tests by default; integration/E2E only when lower layers cannot prove the behavior that changed.
+6. **Evidence proportional to risk.** Inspect docs-only changes; use focused tests for changed behavior. Integration/E2E is warranted when lower layers cannot prove the affected path, not for the appearance of rigor.
 7. **Fail loud when correctness is at risk.** Do not hide data loss, wrong output, stale state, or contract failure behind fallback behavior.
 8. **Check lifecycle where relevant.** Look for stale work, previous-session pollution, cleanup failures, and omitted fields inheriting old values when the change actually touches those paths.
 9. **Never weaken a test merely to get green.** If a test is wrong, prove that separately.
@@ -109,12 +109,6 @@ If investigation, token use, context growth, or elapsed time becomes disproporti
 4. preserve a coherent coordinator-defined same-chain bundle;
 5. split only the newly independent jobs rather than silently expanding or mechanically fragmenting the bundle.
 
-## Subagent rule
-
-Implementation subagent count defaults to **zero** for local and moderate work. Use additional agents only when there is a concrete independent workstream or an independence requirement (for example author vs final contract reviewer). Never recursively spawn agents merely to be thorough.
-
-For a coordinator-defined task bundle, one implementation owner is normally preferred for the shared code path. Bounded independent test/QA agents may run in parallel when that materially reduces elapsed time without duplicating the same implementation work.
-
 ## Abstraction and refactoring rule
 
 A new abstraction/refactor must solve a **current demonstrated constraint**. “Cleaner”, “more standard”, “future-proof”, “we may extend this later”, or “another implementation may exist someday” are not sufficient reasons.
@@ -123,9 +117,16 @@ Do not build a Registry for one mapping, a Strategy for two branches, a Manager 
 
 ## Testing scope
 
-Default: **test this change/task bundle plus directly affected paths.** Expand only when dependency inspection, observed behavior, or structural/high-risk impact proves a wider regression surface.
+**Boundary reminder / Out of Scope != acceptance obligation**（眉毛原则）.
+Scope guards prevent expansion; they do not automatically create new tests,
+special verification, documentation, or report items. Explicit acceptance
+requirements still apply.
 
-Broad regression is not automatically more rigorous. For a small local edit it may be wasted time/tokens; for a contract/lifecycle/rendering change it may be necessary. Choose based on the behavior that could actually break.
+For “keep Schema / Geometry / FFmpeg unchanged”, diff/ownership inspection
+normally suffices. Add targeted verification only if the change approaches or
+crosses that boundary, a direct dependency makes regression plausible, or
+history identifies a concrete regression risk. Full-suite/E2E/lifecycle checks
+need a corresponding risk in this change, not merely a named subsystem.
 
 When bundled fixes share an expensive integration/E2E setup, prefer one shared run with distinct scenarios/assertions for the bundled acceptance conditions rather than repeating effectively identical setup for each micro-fix.
 
