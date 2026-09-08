@@ -60,7 +60,7 @@ GitHub 工作遵循 `pr-delivery`。完整报告写进 PR Description 或顶层 
 确认：这是一个单独结果或边界清楚的同链路任务包；打包决策由 coordinator 完成；没有无边界调查；没有默认 subagent；Reasoning 与风险匹配；共享测试没有无意义重复；每个 bundled item 仍有明确验收；完整规格没有被重复 brainstorm；达到验收后有明确 stop condition。
 
 16：最小格式示例
-模型：GPT-5.6 Terra　Reasoning：Medium
+模型：<当前 harness 实际支持的模型>　Reasoning：<由 model-routing 选择>
 
 1：基线
 Repo：owner/repo，main = `<SHA>`，Branch = `agent/task-branch`，Draft PR 到 main，不要 merge。
