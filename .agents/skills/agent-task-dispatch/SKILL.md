@@ -22,7 +22,7 @@ Chat / Product / Architecture Orchestrator 在派发前负责判断哪些已知�
 默认要求 Agent 先读：任务/Issue、目标实现、直接调用者/消费者、直接相关测试。任务包有多个同链路问题时，共享调查一次即可；不要为每个微小问题从头重复加载同一上下文。只有出现具体证据时才向外扩。不要用“全面调查整个仓库”“读所有相关文件”“穷举所有风险”这类无边界措辞，除非任务本身就是研究/审计。
 
 5：模型与 Reasoning
-派发 Codex 前加载 `model-routing`。在任务最前面写 `模型：XXX　Reasoning：XXX`。Medium 是普通实现的常见起点；High/XHigh/Max 必须由当前任务风险或已观察到的困难支持。不要因为项目重要、Prompt 很长、任务包里有多个小问题或“更保险”就升档。
+派发 Codex 前加载 `model-routing`，按当前 harness 实际支持的设置写 `模型：XXX　Reasoning：XXX`；起始档位与升档条件统一由该 Skill 决定。
 
 6：Subagent 默认关闭
 不要在普通实现任务里要求或暗示“开 researcher/tester/reviewer 子 Agent”。同一任务包的共享核心代码默认由一个实现 Agent 负责，避免多人同时改同一核心文件。
@@ -38,13 +38,13 @@ Agent 可以在同一 PR 内处理：与已知问题共享同一根因、当前�
 
 9：去掉装饰和重复
 禁止无意义分隔符、整份任务代码围栏、重复的冻结边界和同义提醒。相同约束只写一次。能一行表达就不要拆成三行。
+优先用**正向 Scope + 保持不变的契约**表达边界，例如“本轮仅修改 Editor interaction / Inspector；保持现有 Schema、Geometry、PPTist、render contracts 不变”。同一边界只写一次；已知高风险禁止项可单独强调。明确区分 **Scope guards / Out of Scope** 与 **Acceptance**：边界提醒不自动成为测试、专项验证、文档或报告义务，具体按 `engineering-discipline` 的眉毛原则处理。
 
 10：不能为了省 token 丢精度
 仓库、branch、commit SHA、文件路径、命令、字段名、Schema/Contract、错误码、关键验收数字、模型/Reasoning 等必须准确。节省的是重复和仪式，不是技术边界。
 
 11：测试写“风险覆盖”而不是测试清单竞赛
-列出能证明当前改动/任务包的最小测试集合。任务包里多个问题共享同一个昂贵 Product/E2E 路径时，可以一次运行、用多个场景/断言分别证明各项验收，不要机械为每个小问题重复完整环境启动和全链路测试。
-只有改动跨 Contract、持久化、最终渲染、文件/进程生命周期等边界时，才要求对应真实 E2E/回归。全量测试必须有明确 blast-radius 理由。
+按 `engineering-discipline` 列出覆盖实际风险的最小证据集合；文档改动可用内容检查。共享 E2E 可一次覆盖多个 bundled item，各项保留对应断言；专项验证依据实际依赖和回归风险，而非边界提醒的数量。
 
 12：任务变大时只拆真正独立的部分
 如果执行中发现一个任务包变成多个互不依赖的新工作流，Agent 应停止扩大那些独立范围，记录已完成/阻塞/建议拆分。
@@ -60,7 +60,7 @@ GitHub 工作遵循 `pr-delivery`。完整报告写进 PR Description 或顶层 
 确认：这是一个单独结果或边界清楚的同链路任务包；打包决策由 coordinator 完成；没有无边界调查；没有默认 subagent；Reasoning 与风险匹配；共享测试没有无意义重复；每个 bundled item 仍有明确验收；完整规格没有被重复 brainstorm；达到验收后有明确 stop condition。
 
 16：最小格式示例
-模型：GPT-5.6 Terra　Reasoning：Medium
+模型：<当前 harness 实际支持的模型>　Reasoning：<由 model-routing 选择>
 
 1：基线
 Repo：owner/repo，main = `<SHA>`，Branch = `agent/task-branch`，Draft PR 到 main，不要 merge。
@@ -68,11 +68,11 @@ Repo：owner/repo，main = `<SHA>`，Branch = `agent/task-branch`，Draft PR 到
 2：目标
 完成本轮一个清晰工程结果。若这是任务包，列出 2～5 个已经确认、同链路的问题，并分别写一句验收。
 
-3：实现边界
-复用现有入口；共享链路只调查一次；不做列出的独立相邻功能；默认一个实现 Agent，不扫描 backlog 找额外工作。
+3：Scope guards / 实现边界
+本轮修改目标模块，保持列出的现有契约；复用入口、共享调查、由一个实现 Agent 负责。边界提醒与下节验收分开。
 
-4：验收
-运行能证明本次改动的 focused tests；共享 E2E 可以一次覆盖多个 bundled item，但每项都要有对应证据。若改动真实跨越某条 Contract/E2E，再补那条路径。验收通过后停止。
+4：Acceptance / 验收
+列出目标行为及其最小充分证据；专项验证只覆盖实际风险。验收通过后停止。
 
 5：交付
 commit、push、更新 PR；完整报告写进 PR。

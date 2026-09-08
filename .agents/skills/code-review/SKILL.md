@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review PRs and agent output with P0–P3 priorities, evidence-backed findings, and a fixed report format.
+description: Review PRs and agent output with P0–P3 priorities, evidence-backed findings, and risk-proportional reporting.
 ---
 
 # Code Review
@@ -25,7 +25,7 @@ Skip anything an automated gate already enforces; report what it cannot see.
 - The real diff (establish true base/head first) plus enough surrounding code
   to understand the design
 - Tests: which runtime path each one exercises — mapping test ≠ integration test
-- Failure paths and cleanup paths, not only the happy path
+- Failure and cleanup paths when the diff or direct dependencies affect them
 - Scope: unrelated refactors and ownership violations flagged
 - Docs vs implementation consistency
 
@@ -34,13 +34,17 @@ the diff and real execution output.
 
 ## Report format
 
+Scale review depth to the actual diff under `engineering-discipline`.
+Use only applicable sections below; preserved boundaries do not create
+bespoke verification or a checklist of untouched subsystems.
+
 ```markdown
 # Review Result
 Verdict: PASS | PASS WITH FOLLOW-UP | BLOCK
 ## Blocking Findings        # severity, location, problem, why, evidence, minimum fix — or "None"
 ## Non-blocking Findings    # only real value; no filler
 ## Tests / Evidence Checked # which tests, which layer, what remains unproven
-## Human / Visual Verification Required   # anything a machine did not see
+## Human / Visual Verification Required   # when the diff affects visual output/interaction
 ## Scope Check              # unrelated refactor / ownership violation / hidden scope growth
 ```
 
