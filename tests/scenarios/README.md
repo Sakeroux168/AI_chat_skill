@@ -6,10 +6,10 @@ Each scenario is walked through BOOTSTRAP → chat-orchestrator routing and the 
 |---|---|---|
 | 1 | "我想做一个自动整理素材的软件，先帮我想清楚需求" | Orchestrator routes to `requirement-grill`; coordinator asks only load-bearing questions, not a fixed questionnaire. |
 | 2 | "README 把 tezt 改成 test" | No grill; local low-risk change under `engineering-discipline`, one agent, focused verification. |
-| 3 | 机械补 tests（明确规格） | `model-routing`: Luna Low/Medium, not Max by default; Model + Reasoning declared before work. |
+| 3 | 机械补 tests（明确规格） | `model-routing`: an exposed capable lower-cost model such as Luna, Low by default; Model + Reasoning declared before work. |
 | 4 | 普通范围明确的跨模块功能 | `model-routing`: Terra Medium by default; higher effort requires evidence. |
 | 5 | 一个困难但范围明确的 bug，需要旗舰模型 | `model-routing`: Sol Medium first; High only after focused evidence of need. |
-| 6 | 复杂 Schema / Contract / process lifecycle change | `model-routing`: Sol High; structural/high-risk evidence and relevant integration path required. |
+| 6 | 复杂 Schema / Contract / process lifecycle change | `model-routing`: an exposed capable model such as Astra/Sol, Medium by default; High requires a demonstrated blocker, complex unresolved root cause, or architectural impasse. Structural/high-risk engineering checks remain required; integration/E2E when lower layers cannot prove the affected path. |
 | 7 | 极难 blocker / critical final gate | Sol XHigh may be justified; Max requires explicit quality-first justification and is not a routine default. |
 | 8 | Agent 完成 GitHub 工作 | `pr-delivery`: full report written into PR description/comment; chat gives only the required compact completion/failure line. |
 | 9 | Project Contract 与 Global Skill 冲突 | Project Contract wins; global conflict is recorded for later correction. |
@@ -24,6 +24,11 @@ Each scenario is walked through BOOTSTRAP → chat-orchestrator routing and the 
 | 18 | 一个 task bundle 含 3 个同链路问题，共享同一个昂贵 Product E2E | `agent-task-dispatch` allows one shared setup/run with distinct scenarios/assertions proving each bundled acceptance condition; it does not require repeating equivalent full E2E setup three times. |
 | 19 | task bundle 实现完成后，Python 单测、真实 MP4、批量 QA 可以独立验证 | `agent-routing` may use bounded parallel verification agents only when the wall-clock benefit exceeds duplicated context/token cost; the shared implementation remains under one owner and QA agents do not rewrite the same core code. |
 | 20 | Agent 在 bundle 执行中路过看到一个独立重构机会 | It records/reports the finding to the coordinator and leaves it out; “顺手修” does not authorize drive-by refactoring. |
+| 21 | 完整 Issue 已可供接收 Agent 读取，要求派发实现 | Dispatch references the Issue/spec and its confirmed version, execution baseline, incremental instructions, and authorized delivery. Do not recopy Goal / Scope / Acceptance; if the recipient cannot access the source, include the necessary spec once. |
+| 22 | Reviewer 收到裸 PASS，同时另有当前提交、环境、覆盖路径均匹配的可核验执行输出 | Bare PASS is insufficient. Independently inspect the diff and evidence provenance/coverage; reuse valid output without rerunning expensive tests merely because the role changed. Missing/stale/suspect evidence or a project-required independent run still requires focused verification. |
+| 23 | UI 实现与 Agent 可执行验收完成，尚无真人视觉结论 | Implementation Complete may proceed to authorized PR reporting. Agent Delivery Complete ends the agent run while Human Visual remains PENDING; do not claim human acceptance, readiness, or merge approval, and do not repeat screenshots/research while waiting. Explicit human-gated downstream actions remain blocked. |
+| 24 | 验收完成，已有 PR 记录本轮结论，又想到通用 Skill 整理 | Reuse the existing record; no duplicate document, new research, or scope expansion. Independent Skill/general-method work becomes a follow-up. Explicit in-scope/project documentation requirements still apply. |
+| 25 | 同一 UI 交付同时应用 pr-delivery、code-review、gui-acceptance | Keep one canonical completion report in the PR; include the human visual status there. A requested independent review records its own findings and references existing evidence instead of duplicating the completion report or rerunning it by default. |
 
 ## Results target
 
@@ -32,7 +37,7 @@ A conforming run must preserve these invariants:
 - vague product discovery can still be grilled when the coordinator/user actually requests it;
 - complete implementation specs are not re-interviewed or re-brainstormed;
 - ordinary implementation begins at a balanced reasoning level rather than High/Max by habit;
-- Sol High is reserved for actual structural risk or demonstrated difficulty;
+- High requires a demonstrated blocker, complex unresolved root cause, or architectural impasse; structural/high-risk work does not automatically raise reasoning above Medium;
 - Max/multi-agent execution is opt-in, not a normal safety ritual;
 - **task bundling is coordinator-owned by default; implementation agents do not burn quota scanning the backlog for bundle candidates;**
 - **one coherent engineering outcome may include multiple already-known same-chain small/medium fixes; “one task” does not mechanically mean one bug ticket;**

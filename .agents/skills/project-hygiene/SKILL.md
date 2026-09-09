@@ -25,9 +25,12 @@ the repo.
 | Frozen interfaces & data formats | contracts / schemas |
 | Working methods that recur across tasks | skills (project-level, then promote here if universal) |
 
-Knowledge that lives only in a chat dies with the chat. Before ending a task,
-ask: is there anything learned here that the next session will need? If yes,
-it goes to one of the homes above (or a project skill), not into a log file.
+Before ending a task, internally check only for material, durable information
+from the current Scope that remains unrecorded. Reuse existing code, tests,
+docs, or the PR report; record a missing in-scope fact once in an appropriate
+home above. Do not reopen investigation or expand Scope to create knowledge
+artifacts. Independent Skill extraction or general-method organization becomes a
+follow-up. Explicit in-scope and project documentation requirements still apply.
 
 ## Scratch space
 
