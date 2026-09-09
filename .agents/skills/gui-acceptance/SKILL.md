@@ -8,7 +8,7 @@ description: Decide when human visual acceptance is required; automated screensh
 ## Requires human visual acceptance
 
 A change touching any of these must be explicitly flagged for **真人视觉验收**
-in the delivery report and PR:
+in the delivery report in the PR (one report satisfies both):
 
 - UI layout, spacing, alignment
 - Fonts / typography / glyph rendering
@@ -18,7 +18,11 @@ in the delivery report and PR:
 - Any claim of "visual fidelity"
 
 The flag is a statement that the machine did NOT verify the visual result —
-not a formality.
+not a formality. Record outstanding human acceptance as **Human Visual PENDING**.
+After Implementation Complete, finish authorized reporting to reach Agent
+Delivery Complete and end the agent run; PENDING alone does not require more
+screenshots or work. Human acceptance, readiness, merge approval, and explicit
+human-gated downstream actions retain their existing requirements.
 
 ## Does not require human GUI acceptance
 

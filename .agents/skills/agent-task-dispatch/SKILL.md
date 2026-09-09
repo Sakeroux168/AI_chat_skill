@@ -17,6 +17,7 @@ Chat / Product / Architecture Orchestrator 在派发前负责判断哪些已知�
 
 3：完整规格不重复 brainstorm
 如果 Issue/任务包已经包含 Goal、Scope、Acceptance、Out of Scope，就把它当实现输入。不要再要求 Coding Agent 重新头脑风暴、重新采访用户、重新写一份同义 spec 或强制走 Architecture → Plan 仪式。只有一个真正阻塞实现的业务决策时，只问/报告那个决策。
+已有完整规格时默认使用下方引用式短格式：指向接收 Agent 可读取的 Issue/spec 与已确认版本，或其上下文中已有的同一版本；只补执行基线、增量指令和已授权交付，不重抄 Goal / Scope / Acceptance。来源不可读取时，必要规格正文只附一次；无法确认关键约束时只报告该缺口，不靠摘要猜测。
 
 4：控制调查边界
 默认要求 Agent 先读：任务/Issue、目标实现、直接调用者/消费者、直接相关测试。任务包有多个同链路问题时，共享调查一次即可；不要为每个微小问题从头重复加载同一上下文。只有出现具体证据时才向外扩。不要用“全面调查整个仓库”“读所有相关文件”“穷举所有风险”这类无边界措辞，除非任务本身就是研究/审计。
@@ -51,7 +52,7 @@ Agent 可以在同一 PR 内处理：与已知问题共享同一根因、当前�
 不要反过来把 coordinator 已经确认的同链路任务包重新拆成多个重复 Agent session，只因为里面有多个 Bug。
 
 13：停止条件
-任务单必须让 Agent 知道何时结束：当前 Scope/任务包的所有验收通过、无 blocking evidence、交付信息写入 PR 后就停止。不要要求它继续寻找“还能顺便优化什么”。
+任务单必须区分三个终点：Implementation Complete = 当前 Scope 的实现与 Agent 可执行验收完成、无已知实现 blocker，停止扩展实现；Agent Delivery Complete = 已授权交付信息写入 PR 并核验落地，结束 Agent 执行；Human Visual PENDING = 真人验收尚未完成，保持待验收标记，不阻塞正常 Agent 交付结束，也不触发额外 research / review / cleanup 或重复截图。真人验收、ready、merge 及明确依赖人工批准的后续动作仍保留原有门槛。不要要求它继续寻找“还能顺便优化什么”。
 
 14：PR 交付
 GitHub 工作遵循 `pr-delivery`。完整报告写进 PR Description 或顶层 comment；聊天只保留规定的一行成功/失败确认。不在任务末尾再复制一遍全部验收规则。
@@ -60,6 +61,14 @@ GitHub 工作遵循 `pr-delivery`。完整报告写进 PR Description 或顶层 
 确认：这是一个单独结果或边界清楚的同链路任务包；打包决策由 coordinator 完成；没有无边界调查；没有默认 subagent；Reasoning 与风险匹配；共享测试没有无意义重复；每个 bundled item 仍有明确验收；完整规格没有被重复 brainstorm；达到验收后有明确 stop condition。
 
 16：最小格式示例
+已有完整 Issue/spec 时默认使用引用式短格式：
+模型／Reasoning：<实际设置>
+规格：<Issue/spec URL + 已确认版本；上下文已有同一版本则引用它>
+基线：<Repo / branch / commit>
+增量指令：<仅列规格之外的新要求；无则省略>
+交付：<已授权的目标位置；Implementation Complete → Agent Delivery Complete，真人验收状态单独标记>
+
+需要自包含任务单时使用以下格式；完整规格正文只提供一次：
 模型：<当前 harness 实际支持的模型>　Reasoning：<由 model-routing 选择>
 
 1：基线
@@ -72,7 +81,7 @@ Repo：owner/repo，main = `<SHA>`，Branch = `agent/task-branch`，Draft PR 到
 本轮修改目标模块，保持列出的现有契约；复用入口、共享调查、由一个实现 Agent 负责。边界提醒与下节验收分开。
 
 4：Acceptance / 验收
-列出目标行为及其最小充分证据；专项验证只覆盖实际风险。验收通过后停止。
+列出目标行为及其最小充分证据；专项验证只覆盖实际风险。Implementation Complete 后停止扩展实现，完成下节已授权交付后结束；Human Visual PENDING 单独标记。
 
 5：交付
 commit、push、更新 PR；完整报告写进 PR。

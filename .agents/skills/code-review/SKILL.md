@@ -29,8 +29,13 @@ Skip anything an automated gate already enforces; report what it cannot see.
 - Scope: unrelated refactors and ownership violations flagged
 - Docs vs implementation consistency
 
-**Never trust the author agent's self-report of PASS.** Verify claims against
-the diff and real execution output.
+**Never accept the author's unsupported PASS claim as evidence.** Independently
+inspect the diff and match verifiable execution output to the reviewed commit,
+relevant environment, and claimed coverage, including its provenance. Reuse
+valid evidence; changing from author to reviewer is not itself a reason to
+rerun expensive tests. Run focused verification when evidence is missing,
+stale, suspect, or insufficient, and preserve project-required independent
+runs. Independent review of the diff and evidence remains required.
 
 ## Report format
 

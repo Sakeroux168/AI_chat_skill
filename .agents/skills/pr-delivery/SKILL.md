@@ -12,6 +12,21 @@ future sessions, or GPT-side orchestration — and it forces the user to
 manually copy dozens of lines between tools, which is exactly what this rule
 prevents.
 
+## Completion states
+
+- **Implementation Complete:** scoped implementation and agent-executable
+  acceptance are complete with no known implementation blocker; stop expanding
+  implementation work.
+- **Agent Delivery Complete:** the authorized PR report is written and its
+  delivery verified; the agent may end its run.
+- **Human Visual PENDING:** human acceptance is outstanding. Record that status
+  without repeating screenshots, research, review, or cleanup merely to wait.
+  It does not prevent Agent Delivery Complete and does not grant human
+  acceptance, readiness, or merge approval. Explicit human-gated downstream
+  actions remain blocked until their required approval is obtained.
+
+These states do not authorize additional writes, publication, or merging.
+
 ## Protocol
 
 1. Finish the work: commit, push, update the existing PR or open one when
@@ -21,7 +36,11 @@ prevents.
    evidence accurately; raw logs and a section per item are not required.
    Preserved/out-of-scope subsystems need individual report entries only
    when they are a real risk surface of this change. Include any requested
-   readiness statement or project-specific evidence.
+   readiness statement or project-specific evidence. One canonical completion
+   report in the PR satisfies this delivery obligation; reuse valid evidence
+   under `code-review` without restarting implementation, tests, or review merely
+   to publish the report. A separately requested review records its own findings
+   and may reference the existing report/evidence rather than duplicate them.
 3. Verify the write landed (re-fetch or confirm the tool returned the PR URL).
 4. Final chat reply, exactly:
    - Success: `已写进 PR #XX，无需向 GPT 复述。`
