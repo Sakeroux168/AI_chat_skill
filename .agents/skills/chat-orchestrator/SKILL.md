@@ -7,6 +7,8 @@ description: Route an incoming request to the minimum necessary global skill; co
 
 The only skill loaded at startup. Its job is routing — nothing else. Load the minimum skill set needed for the current phase.
 
+**Coordinator restraint is part of routing.** These rules constrain Chat/coordinator as well as downstream agents. Do not turn a directly solvable request into extra Issues, plans, research, agents, test matrices, abstractions, or task splits merely because those mechanisms are available. Choose the minimum sufficient work that satisfies the user's current goal; escalate process, risk, or engineering effort only when current evidence requires it.
+
 ## Routing table
 
 | Signal in the request | Route to |
