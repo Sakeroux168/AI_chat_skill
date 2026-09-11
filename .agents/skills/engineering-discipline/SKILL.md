@@ -9,6 +9,8 @@ How implementation work is done from task pickup through delivery.
 
 Core principle: **small things: restraint; big things: rigor. Match engineering effort, reasoning, investigation depth, and testing to actual risk.** Prefer the minimum correct implementation for the current requirement. Do not add abstractions, compatibility layers, extension points, frameworks, or process ceremony for hypothetical future needs when the existing architecture can solve the real problem correctly.
 
+This discipline applies to **Chat/coordinator planning, dispatch, review, and implementation decisions**, not only to coding agents. Coordinator-added process is still engineering cost and must satisfy the same evidence/risk test.
+
 ## Mandatory workflow
 
 1. **Inspect before assuming.** Read the real implementation, relevant types, and at least one direct call site before relying on a function/API/schema field/flag/protocol.
