@@ -1,11 +1,12 @@
 # Skill Registry
 
-V1.1 contains exactly ten skills. Nothing else. Extending this list requires a
-PR and a strong reason — skills cost context every time they are loaded.
+V1.2 contains exactly eleven skills. Nothing else. Extending this list requires
+a PR and a strong reason — skills cost context every time they are loaded.
 
 | Skill | Purpose | Loads |
 |---|---|---|
 | `chat-orchestrator` | Routes an incoming request to the right skill; owns nothing else | always |
+| `coordinator-continuity` | Keeps project coordination continuous across Chat sessions using project-scoped rolling memory + current handoff | on route |
 | `requirement-grill` | Adaptive interrogation of vague requirements → Requirement Decision Sheet | on route |
 | `agent-routing` | Role definitions and current default model/agent mappings | on route |
 | `model-routing` | Codex task → model + reasoning-effort choice, with mandatory pre-work declaration | on route |
@@ -20,9 +21,10 @@ Cross-harness: all skills are plain Markdown with no runtime assumptions.
 Any agent (ChatGPT, Codex, Claude, Hermes) reads them from this repo
 directly or via raw.githubusercontent.com.
 
-Versioning: see [CHANGELOG.md](CHANGELOG.md). V1 = initial nine skills; V1.1 adds `agent-task-dispatch`.
+Versioning: see [CHANGELOG.md](CHANGELOG.md). V1 = initial nine skills; V1.1 adds
+`agent-task-dispatch`; V1.2 adds `coordinator-continuity`.
 
-Professional capabilities are deliberately excluded from this exact-ten
+Professional capabilities are deliberately excluded from this exact-eleven
 registry. They are discovered lazily through
 `Sakeroux168/AI_shared_skills/registry/skills.json` when needed and do
 not count as additional global collaboration skills.
