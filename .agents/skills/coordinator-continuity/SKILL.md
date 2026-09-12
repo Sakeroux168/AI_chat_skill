@@ -30,6 +30,8 @@ When a coordinator starts work on a project and these continuity files do not ye
 
 Do not create empty boilerplate files before there is meaningful project information to record.
 
+If the project does not have a repository yet, do not store its memory in the global-skill repository or invent a substitute location. Keep the working context in the current coordinator session and initialize the project continuity files after the project repository exists.
+
 A brand-new project may therefore start with no continuity files for the first few exploratory messages. The coordinator creates them at the first natural checkpoint: after the project direction becomes clear, before the first implementation dispatch, or before leaving the session.
 
 ### MEMORY.md
