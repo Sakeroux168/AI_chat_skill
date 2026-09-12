@@ -5,7 +5,7 @@ description: Keep long-running project coordination continuous across Chat sessi
 
 # Coordinator Continuity
 
-Use this skill when a Chat/coordinator is continuing a project across sessions, returning to a project after a gap, or preparing to dispatch project work where project-level coordinator memory exists.
+Use this skill when a Chat/coordinator starts a new project, continues a project across sessions, returns after a gap, or prepares to dispatch project work where project-level coordinator memory exists.
 
 This skill defines **how** continuity is maintained. The actual project memory belongs in the project repository, never in `AI_chat_skill`.
 
@@ -17,6 +17,20 @@ Preferred default paths:
 - `.ai/coordinator/HANDOFF.md`
 
 A project may define another location. Project-local conventions win.
+
+## New project initialization
+
+When a coordinator starts work on a project and these continuity files do not yet exist:
+
+1. inspect only the minimum project sources needed to understand the current project state, such as the README, project skills/contracts, active Issue/spec, and directly relevant architecture/status documents;
+2. do not scan the whole repository merely to manufacture memory;
+3. once enough project context exists to form a reliable snapshot, create `MEMORY.md` with only durable high-value knowledge;
+4. create `HANDOFF.md` only when there is a real current execution state to hand off;
+5. do this without requiring the user to explicitly ask “create memory” or “update handoff”.
+
+Do not create empty boilerplate files before there is meaningful project information to record.
+
+A brand-new project may therefore start with no continuity files for the first few exploratory messages. The coordinator creates them at the first natural checkpoint: after the project direction becomes clear, before the first implementation dispatch, or before leaving the session.
 
 ### MEMORY.md
 
@@ -85,10 +99,11 @@ If the current session already read the latest versions and no external change o
 
 Before dispatching a project task to Codex, Claude, Hermes, Ox, or another implementation agent, the coordinator performs a lightweight Memory Checkpoint:
 
-1. check whether the current discussion produced new durable project knowledge;
-2. if yes, update `MEMORY.md` before dispatch;
-3. if no, leave `MEMORY.md` untouched;
-4. refresh `HANDOFF.md` only when the material execution state changed.
+1. check whether the project has continuity files; if not, initialize them when there is enough reliable project context;
+2. check whether the current discussion produced new durable project knowledge;
+3. if yes, update `MEMORY.md` before dispatch;
+4. if no, leave `MEMORY.md` untouched;
+5. refresh `HANDOFF.md` only when the material execution state changed.
 
 This checkpoint is event-driven, not message-count-driven.
 
