@@ -13,7 +13,7 @@ The only skill loaded at startup. Its job is routing — nothing else. Load the 
 
 | Signal in the request | Route to |
 |---|---|
-| Continuing a project across coordinator sessions, returning after a gap, or preparing project dispatch where coordinator memory exists | `coordinator-continuity` |
+| Starting a new project, continuing a project across coordinator sessions, returning after a gap, or preparing project dispatch where coordinator memory exists | `coordinator-continuity` |
 | User/coordinator is exploring a genuinely vague product idea or explicitly asks to brainstorm/grill | `requirement-grill` |
 | Clear local/reversible change or complete implementation Issue/spec | `engineering-discipline` only; do not rerun requirement discovery |
 | Several already-known small/medium issues may share one module/runtime chain or test path | `engineering-discipline` to decide a coherent task bundle; if dispatching afterward, also use `agent-task-dispatch` |
@@ -30,7 +30,7 @@ The only skill loaded at startup. Its job is routing — nothing else. Load the 
 ## Routing rules
 
 1. **Load only what this phase needs.** Never preload the whole registry or run a full skill chain merely because it exists.
-2. **Project continuity is project-scoped.** When `coordinator-continuity` applies, load the project's current coordinator memory/handoff from that project repository. Do not copy project memory into this global repository and do not reread unchanged memory every few messages.
+2. **Project continuity is project-scoped.** When `coordinator-continuity` applies, initialize or load the project's coordinator memory/handoff inside that project repository. Do not copy project memory into this global repository and do not reread unchanged memory every few messages.
 3. **A complete spec skips discovery.** If Goal + Scope + Acceptance + Out of Scope are already defined, implementation may proceed directly under engineering discipline. Words such as “自动”, “批量”, “智能”, or “新功能” do not override a complete spec.
 4. **Brainstorming belongs to the coordinator/product stage by default.** Coding agents do not independently reopen product discovery unless they find a named blocking business ambiguity.
 5. **Task bundling also belongs to the coordinator by default.** Before dispatch, the Chat/coordinator may group several already-known small/medium issues when they share the same module/direct runtime chain, implementation context, and verification path. The implementation agent should receive the prepared bundle rather than spend quota scanning the backlog or repository for more candidates.
