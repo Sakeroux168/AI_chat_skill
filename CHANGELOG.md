@@ -7,6 +7,7 @@
 - Standardized the lightweight project continuity pattern:
   - rolling `.ai/coordinator/MEMORY.md` for current long-term coordinator knowledge;
   - current `.ai/coordinator/HANDOFF.md` for immediate execution state.
+- New projects initialize these files automatically at the first natural checkpoint once enough reliable project context exists; the user does not need to request memory creation manually.
 - `MEMORY.md` is a rewriteable snapshot rather than an append-only log; still-relevant decisions and ideas remain in the latest version, while superseded/obsolete material may leave the current snapshot and remain recoverable through Git history.
 - Added an event-driven Memory Checkpoint before project task dispatch: update memory only when durable project knowledge actually changed.
 - Explicitly rejected message-count polling such as rereading memory every N chat messages; read once and reuse while current, refresh only when stale, uncertain, or entering a new coordinator session.
