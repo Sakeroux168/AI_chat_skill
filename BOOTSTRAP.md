@@ -10,8 +10,9 @@ skill only when the orchestrator routes you to it.
 
 Global collaboration skills: working principles that hold for **every**
 project, chat, and agent. They are deliberately project-agnostic. Project-
-specific rules (contracts, ADRs, frozen schemas, ownership maps) live in each
-project's own repo and always take precedence over what is written here.
+specific rules (contracts, ADRs, frozen schemas, ownership maps, coordinator
+memory, and current handoff state) live in each project's own repo and always
+take precedence over what is written here.
 
 ## Precedence (highest wins)
 
@@ -37,6 +38,7 @@ conflict so it can be fixed here.
 | Skill | Load when |
 |---|---|
 | `chat-orchestrator` | always (at startup) |
+| `coordinator-continuity` | continuing a project across coordinator sessions, returning after a gap, or dispatching project work where coordinator memory exists |
 | `requirement-grill` | vague new product idea, or user asks to be grilled |
 | `agent-routing` | work must be split across agents/roles |
 | `model-routing` | dispatching work to Codex (model/reasoning choice) |
@@ -51,9 +53,9 @@ See [SKILLS.md](SKILLS.md) for one-line descriptions.
 
 ## External professional capabilities (lazy-load only)
 
-Professional/domain skills do not belong to this ten-skill global registry.
-When a task would materially benefit from a reusable capability not supplied
-by the current project or these globals, the orchestrator may query
+Professional/domain skills do not belong to this global collaboration
+registry. When a task would materially benefit from a reusable capability not
+supplied by the current project or these globals, the orchestrator may query
 `Sakeroux168/AI_shared_skills/registry/skills.json`. It loads only the
 matched skill, never that repository's whole catalog, and never at startup.
 
@@ -66,7 +68,7 @@ instead of inventing registry entries.
 ## How a session gets bootstrapped
 
 A new chat does not read this repo by itself. The user must give an explicit
-entry instruction once, e.g.:
+entry instruction once, e.g.
 
 > 读取 GitHub 仓库 Sakeroux168/AI_chat_skill 的 BOOTSTRAP.md，并按它加载全局 Skill。
 
