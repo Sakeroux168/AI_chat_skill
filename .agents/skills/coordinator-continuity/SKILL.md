@@ -67,6 +67,12 @@ Transient execution state, raw logs, ordinary command output, casual discussion,
 
 Where helpful, keep a short source pointer such as an Issue, PR, commit, or project document. Do not turn the file into a bibliography.
 
+## Authority and staleness
+
+Coordinator memory is a convenience layer, not a source of truth above the project itself.
+
+If MEMORY/HANDOFF conflicts with a newer explicit user instruction, current project Contract/ADR/skill, active Issue/PR state, or verified repository/runtime evidence, follow the newer or higher-authority source and repair the continuity files at the next natural checkpoint. Never use stale memory to override current reality.
+
 ### HANDOFF.md
 
 `HANDOFF.md` is the **current execution snapshot**, not long-term memory.
@@ -96,6 +102,8 @@ Read or refresh them when:
 4. a project task is about to be dispatched and the current session has not already loaded a known-current version.
 
 If the current session already read the latest versions and no external change occurred, reuse that context rather than fetching them again.
+
+Before writing either file, confirm the repository version is still current. If another coordinator or process changed it, reconcile the new content first; do not overwrite unseen updates.
 
 ## Memory checkpoint before project dispatch
 
