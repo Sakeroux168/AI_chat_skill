@@ -38,14 +38,14 @@ conflict so it can be fixed here.
 | Skill | Load when |
 |---|---|
 | `chat-orchestrator` | always (at startup) |
-| `coordinator-continuity` | continuing a project across coordinator sessions, returning after a gap, or dispatching project work where coordinator memory exists |
+| `coordinator-continuity` | starting a new project, continuing across coordinator sessions, returning after a gap, or dispatching project work where coordinator memory applies |
 | `requirement-grill` | vague new product idea, or user asks to be grilled |
 | `agent-routing` | work must be split across agents/roles |
 | `model-routing` | dispatching work to Codex (model/reasoning choice) |
 | `agent-task-dispatch` | writing or rewriting a task that will be sent to an agent |
 | `engineering-discipline` | before implementing/debugging/refactoring |
 | `code-review` | reviewing a PR or another agent's completed work |
-| `pr-delivery` | an agent finished GitHub work and must report it |
+| `pr-delivery` | an agent finished GitHub work and must report |
 | `project-hygiene` | committing; deciding what belongs in a repo |
 | `gui-acceptance` | UI/visual changes need acceptance |
 
