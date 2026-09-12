@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## V1.2 (2026-09-12)
+
+- Added `coordinator-continuity` as the eleventh global collaboration skill.
+- Project-specific coordinator memory now lives in each project repository, not in `AI_chat_skill`.
+- Standardized the lightweight project continuity pattern:
+  - rolling `.ai/coordinator/MEMORY.md` for current long-term coordinator knowledge;
+  - current `.ai/coordinator/HANDOFF.md` for immediate execution state.
+- New projects initialize these files automatically at the first natural checkpoint once enough reliable project context exists; the user does not need to request memory creation manually.
+- `MEMORY.md` is a rewriteable snapshot rather than an append-only log; still-relevant decisions and ideas remain in the latest version, while superseded/obsolete material may leave the current snapshot and remain recoverable through Git history.
+- Added an event-driven Memory Checkpoint before project task dispatch: update memory only when durable project knowledge actually changed.
+- Explicitly rejected message-count polling such as rereading memory every N chat messages; read once and reuse while current, refresh only when stale, uncertain, or entering a new coordinator session.
+- Coordinator owns MEMORY/HANDOFF by default; implementation agents continue to report through Issue/PR delivery instead of filling project memory with execution logs.
+
 ## V1.1.1 (2026-08-26)
 
 - Added lazy, metadata-driven discovery of professional capabilities through
